@@ -45,19 +45,20 @@ Python 3.12+
 Recommended:
 
 ```text
-pytest
+unittest
 ```
 
-Install:
+Python's built-in `unittest` framework is used to keep the project dependency-free and to better understand testing fundamentals.
+
+Install (not required):
 
 ```bash
-pip install pytest
+# unittest is included in the Python standard library
 ```
 
 Optional tools:
 
 ```bash
-pip install pytest-cov
 pip install hypothesis
 pip install ruff
 pip install black
@@ -128,11 +129,15 @@ For EVERY feature:
 Example:
 
 ```python
+import unittest
 from csv_parser import parse
 
+class TestParser(unittest.TestCase):
+    def test_parses_single_row(self):
+        self.assertEqual(parse("a,b,c"), [["a", "b", "c"]])
 
-def test_parses_single_row():
-    assert parse("a,b,c") == [["a", "b", "c"]]
+if __name__ == "__main__":
+    unittest.main()
 ```
 
 ## Step 2 — Run tests
@@ -192,14 +197,11 @@ Output:
 def test_parses_single_row():
     pass
 
-
 def test_parses_multiple_rows():
     pass
 
-
 def test_parses_empty_input():
     pass
-
 
 def test_parses_trailing_newline():
     pass
@@ -246,7 +248,6 @@ parse(data, delimiter=";")
 def test_parses_semicolon_delimiter():
     pass
 
-
 def test_parses_tab_delimiter():
     pass
 ```
@@ -262,7 +263,7 @@ Support actual CSV rules.
 ## Features
 
 * Quoted fields
-* Commas inside quoted fields
+* Commas inside quotes
 
 ## Example
 
@@ -314,10 +315,8 @@ END_ROW
 def test_parses_quoted_field():
     pass
 
-
 def test_parses_comma_inside_quotes():
     pass
-
 
 def test_parses_empty_quoted_field():
     pass
@@ -352,7 +351,6 @@ Expected:
 ```python
 def test_parses_escaped_quotes():
     pass
-
 
 def test_parses_multiple_escaped_quotes():
     pass
@@ -401,7 +399,6 @@ This phase teaches:
 ```python
 def test_parses_multiline_field():
     pass
-
 
 def test_parses_multiple_multiline_records():
     pass
@@ -458,10 +455,8 @@ class CSVParseError(Exception):
 def test_raises_on_unclosed_quote():
     pass
 
-
 def test_reports_correct_line_number():
     pass
-
 
 def test_reports_correct_column_number():
     pass
@@ -509,7 +504,6 @@ Expected:
 def test_parses_headers():
     pass
 
-
 def test_maps_rows_to_dicts():
     pass
 ```
@@ -554,10 +548,8 @@ Alice,"hello, world"
 def test_writes_basic_csv():
     pass
 
-
 def test_writes_quoted_fields():
     pass
-
 
 def test_roundtrip_parse_write():
     pass
@@ -582,8 +574,9 @@ Parse large files efficiently.
 ## Example API
 
 ```python
-for row in parse_stream(file):
-    print(row)
+def parse_stream(file):
+    for row in file:
+        yield row
 ```
 
 ---
@@ -604,7 +597,6 @@ This phase teaches:
 ```python
 def test_streaming_large_file():
     pass
-
 
 def test_chunk_boundaries():
     pass
@@ -684,8 +676,6 @@ Generate random CSV input and ensure:
 ```text
 write(parse(x)) == x
 ```
-
-for valid CSV.
 
 ---
 
@@ -767,37 +757,43 @@ Expected:
 ## Basic Parsing
 
 ```python
-parse(data)
+def parse(data):
+    pass
 ```
 
 ## Headers Mode
 
 ```python
-parse(data, headers=True)
+def parse(data, headers=True):
+    pass
 ```
 
 ## Custom Delimiter
 
 ```python
-parse(data, delimiter=";")
+def parse(data, delimiter=","):
+    pass
 ```
 
 ## Strict Mode
 
 ```python
-parse(data, strict=True)
+def parse(data, strict=True):
+    pass
 ```
 
 ## Streaming
 
 ```python
-parse_stream(file)
+def parse_stream(file):
+    pass
 ```
 
 ## Writing CSV
 
 ```python
-write(rows)
+def write(rows):
+    pass
 ```
 
 ---
